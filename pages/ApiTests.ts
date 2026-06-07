@@ -74,5 +74,20 @@ export class ApiTests{
             responseBody: responseBody
         }
     }
+    async deleteAccount(email: string, password:string) : Promise<ApiResponse<ApiMessageResponse>>{
+        const response = await this.apiContext.delete(
+            `${this.baseUrl}/deleteAccount`, {
+                multipart: {
+                    email: email,
+                    password: password
+                }
+            }
+        );
+        const responseBody = await response.json();
+        return {
+            statusCode: response.status(),
+            responseBody: responseBody
+        }
+    }
 
 }
