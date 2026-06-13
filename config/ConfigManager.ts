@@ -19,12 +19,6 @@ export class ConfigManager{
         email : process.env.TEST_USER_EMAIL!,
         password: process.env.TEST_USER_PASSWORD!,
         duration: 30000
-
-        // baseUrl : process.env.BASE_URL || "https://reqres.in",
-        // apiUrl : process.env.API_URL || "https://reqres.in/api",
-        // email : process.env.TEST_USER_EMAIL || "eve.holt@reqres.in",
-        // password: process.env.TEST_USER_PASSWORD || "cityslicka",
-        // duration: 30000
     }
 
     private constructor() {};

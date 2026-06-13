@@ -1,6 +1,6 @@
 import {APIRequestContext, expect} from '@playwright/test';
-import {User, UserDetailResponse, ApiMessageResponse} from '../models/User';
-import { ConfigManager } from '../config/ConfigManager';
+import {User, UserDetailResponse, ApiMessageResponse} from '../../models/User';
+import { ConfigManager } from '../../config/ConfigManager';
 
 // type of the response body will be decided dynamically based on the API endpoint we are hitting, so we can use a generic type T to represent the response body, which can be of any type depending on the API endpoint. This allows us to reuse the ApiResponse interface for different API endpoints with different response body types, making our code more flexible and reusable. For example, if we are hitting an API endpoint that returns a UserDetailResponse, we can specify T as UserDetailResponse when using the ApiResponse interface, and if we are hitting an API endpoint that returns an ApiMessageResponse, we can specify T as ApiMessageResponse when using the ApiResponse interface.
 interface ApiResponse<T> {

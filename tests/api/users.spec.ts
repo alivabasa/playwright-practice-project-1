@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test';
-import {ApiTests} from '../../pages/ApiTests';
+import {ApiTests} from '../../pages/api/ApiTests';
 import {User} from '../../models/User';
 import {ConfigManager} from '../../config/ConfigManager';
 import { UserFactory, UserFactoryBuilder } from '../../factories/UserFactory';
