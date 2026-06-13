@@ -49,6 +49,7 @@ test.describe('User API Tests', () => {
         console.log(invalidCredentialsResponse);
         expect(invalidCredentialsResponse.statusCode).toBe(200);
         expect(invalidCredentialsResponse.responseBody.message).toBe("User not found!");
+        expect(invalidCredentialsResponse.responseBody.responseCode).toBe(404);
 
     });
 
@@ -59,6 +60,7 @@ test.describe('User API Tests', () => {
         expect(invalidCredentialsResponse.statusCode).toBe(200);
         expect(invalidCredentialsResponse.responseBody.message).toBe(
             "Bad request, email or password parameter is missing in POST request.");
+        expect(invalidCredentialsResponse.responseBody.responseCode).toBe(400);
     });
 
     test("User creates an account with already registered email", async()=>{
@@ -66,9 +68,10 @@ test.describe('User API Tests', () => {
         // create new user
         await apiTests.createAccount(user);  
         const duplicateAccountResponse = await apiTests.createAccount(user);
-        // console.log(duplicateAccountResponse);
-
-
+        console.log(duplicateAccountResponse);
+        expect(duplicateAccountResponse.responseBody.message).toBe("Email already exists!");
+        expect(duplicateAccountResponse.responseBody.responseCode).toBe(400);
+        
     });
     test("User creates an account with custom details", async()=>{
         const user = new UserFactoryBuilder()
@@ -90,16 +93,11 @@ test.describe('User API Tests', () => {
         expect (getUserDetailsResponse.responseBody.user.country).toBe("UK");
         expect (getUserDetailsResponse.responseBody.user.city).toBe("London");
 
-        // delet the created user
         // delete the created user
         const deleteUserResponse = await apiTests.deleteAccount(user.email, user.password);
         console.log(deleteUserResponse);
         expect (deleteUserResponse.statusCode).toBe(200);
         expect (deleteUserResponse.responseBody.message).toBe("Account deleted!");
-
-       
-
-
 
     });
 })
