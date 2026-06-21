@@ -4,8 +4,8 @@ export class UserFactory {
     static default(): User {
         const timestamp = Date.now();
         return {
-            name: 'Ravi Kumar',
-            email: `ravi.test${timestamp}@test.com`,
+            name: `testUser${timestamp}`,
+            email: `testUser${timestamp}@testmail.com`,
             password: 'test@1256',
             title: 'Mr',
             firstName: 'Ravi',
