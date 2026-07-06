@@ -21,6 +21,7 @@ test.describe("Sign Up Tests", ()=>{
     test.afterAll(async({request})=>{
         apipage = new ApiTests(request);
         await apipage.deleteAccount(user.email, user.password);
+        
     })
 
     test("TC1: User signs up with valid credentials successfully", async({page})=>{
@@ -64,12 +65,10 @@ test.describe("Sign Up Tests", ()=>{
         signUpPage = new SignUpPage(page);
         await signUpPage.goToSignUpPage(page);
         await expect(signUpPage.signUpText).toHaveText(signUpPage.SIGNUP_FORM_TEXT_VALUE);
-        await signUpPage.signUpWithCredentials(" ", user.email);
+        await signUpPage.signUpWithCredentials("", user.email);
         const validationMessage = await signUpPage.nameInput.evaluate(
             (el: HTMLInputElement) => el.validationMessage
         )
         expect(validationMessage).toContain(signUpPage.MANDATORY_FIELD_ERROR_MESSAGE);
-
-
     });
 })
