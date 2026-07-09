@@ -1,21 +1,18 @@
-// import test, { expect } from "@playwright/test";
-import { User } from "../../models/User";
-import { ApiTests } from "../../pages/api/ApiTests";
 import { UserFactory } from "../../factories/UserFactory";
-import { SignUpPage } from "../../pages/ui/SignUpTests";
+
 import {test, expect} from '../../fixtures/fixtures';
 
 
 test.describe("Sign Up Tests", ()=>{
     
-    test("TC1: User signs up with valid credentials successfully", async({page, signUpPage})=>{
-        const newuser = UserFactory.default();
+    test("TC1: User signs up with valid credentials successfully", async({page, signUpPage, newUserData})=>{
+        // const newuser = UserFactory.default();
         await signUpPage.goToSignUpPage(page);
         await expect(signUpPage.signUpText).toBeVisible();
         await expect(signUpPage.signUpText).toHaveText(signUpPage.SIGNUP_FORM_TEXT_VALUE);
         await expect(signUpPage.nameInput).toBeVisible();
         await expect(signUpPage.emailInput).toBeVisible();
-        await signUpPage.signUpWithCredentials(newuser.name, newuser.email);
+        await signUpPage.signUpWithCredentials(newUserData.name, newUserData.email);
         await expect(page).toHaveURL(signUpPage.baseUrl + "/signup");
     });
 

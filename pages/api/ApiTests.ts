@@ -7,7 +7,7 @@ interface ApiResponse<T> {
     statusCode: number,
     responseBody: T
 }
-export class ApiTests{
+export class UserService{
     private apiContext: APIRequestContext;
     // private configManager: ConfigManager;
     private baseUrl: string;

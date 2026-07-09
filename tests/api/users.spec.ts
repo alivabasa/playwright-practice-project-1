@@ -1,14 +1,14 @@
 import {test, expect} from '@playwright/test';
-import {ApiTests} from '../../pages/api/ApiTests';
+import {UserService} from '../../pages/api/ApiTests';
 import {User} from '../../models/User';
 import {ConfigManager} from '../../config/ConfigManager';
 import { UserFactory, UserFactoryBuilder } from '../../factories/UserFactory';
 
 test.describe('User API Tests', () => {
-    let apiTests: ApiTests;
+    let apiTests: UserService;
 
     test.beforeEach(async ({request}) => {
-        apiTests = new ApiTests(request);
+        apiTests = new UserService(request);
     });
 
     test('create -> verify user credentials is stored-> login -> delete', async()=>{

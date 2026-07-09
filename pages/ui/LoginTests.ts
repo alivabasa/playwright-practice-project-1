@@ -45,5 +45,18 @@ export class LoginPage{
         const headers: String[]= await this.dashboardPageHeaders.allInnerTexts();
         return headers;
     }
+    async expectInvalidLogin(){
+        await expect(this.loginFormErrorMessage).toBeVisible();
+        await expect(this.loginFormErrorMessage).toHaveText(
+            this.INVALID_CREDENTIALS_ERROR_MESSAGE
+        );
+    }
 
+    async logOut(){
+        this.logOutPageLink.click();
+    }
+    async validateLoginPageFormText(){
+        await expect(this.loginFormText).toBeVisible();
+        await expect(this.loginFormText).toHaveText(this.LOGIN_FORM_TEXT_VALUE);
+    }
 }
