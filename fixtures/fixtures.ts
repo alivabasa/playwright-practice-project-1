@@ -1,6 +1,6 @@
 // fixtures/fixtures.ts
 import { test as base, expect } from '@playwright/test';
-import { UserService } from '../pages/api/ApiTests';
+import { UserService } from '../pages/api/UserService';
 import { LoginPage } from '../pages/ui/LoginTests';
 import { SignUpPage } from '../pages/ui/SignUpTests';
 import { UserFactory } from '../factories/UserFactory';
@@ -38,9 +38,9 @@ export const test = base.extend<Fixtures>({
       throw new Error("User creation failed, cannot proceed with test");
     }
 
-    await use(user);              // <- test runs here
+    await use(user);             
 
-    await apiTests.deleteAccount(user.email, user.password); // teardown
+    await apiTests.deleteAccount(user.email, user.password); 
   },
   newUserData: async ({}, use) => {
     const newUser = UserFactory.default();
