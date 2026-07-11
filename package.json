@@ -14,5 +14,15 @@
   },
   "dependencies": {
     "winston": "^3.19.0"
+  },
+  "scripts": {
+    "test":             "playwright test",
+    "test:api":         "playwright test tests/api",
+    "test:ui":          "playwright test tests/ui",
+    "test:headed":      "playwright test --headed",
+    "test:debug":       "playwright test --debug",
+    "test:report":      "playwright show-report",
+    "typecheck":        "tsc --noEmit",
+    "lint":             "eslint . --ext .ts"
   }
 }

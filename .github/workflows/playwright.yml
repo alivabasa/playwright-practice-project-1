@@ -1,27 +1,142 @@
-name: Playwright Tests
+# .github/workflows/playwright.yml
+
+name: Playwright Test Suite
+
 on:
+  # Run on every push to main
   push:
-    branches: [ main, master ]
+    branches: [main]
+
+  # Run on every pull request targeting main
   pull_request:
-    branches: [ main, master ]
+    branches: [main]
+
+  # Allow manual trigger from GitHub UI
+  workflow_dispatch:
+
 jobs:
   test:
-    timeout-minutes: 60
+    name: Run Playwright Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      # Run all matrix jobs even if one fails
+      fail-fast: false
+      matrix:
+        # Split tests across 2 shards for speed
+        # Shard 1 runs half the tests, Shard 2 runs the other half
+        # Both run in parallel — cuts total time roughly in half
+        shard: [1, 2]
+        shardTotal: [2]
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+
+      # Step 1 — Check out your code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2 — Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # Cache node_modules — skips npm install if package-lock.json unchanged
+          cache: 'npm'
+
+      # Step 3 — Install dependencies
+      - name: Install dependencies
+        run: npm ci
+        # npm ci is stricter than npm install —
+        # it uses exact versions from package-lock.json
+        # never updates anything — important for CI stability
+
+      # Step 4 — Install Playwright browsers
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+        # --with-deps installs OS-level dependencies too
+        # Only install what you use — chromium + firefox here
+
+      # Step 5 — Run tests
+      - name: Run Playwright tests
+        run: |
+          npx playwright test \
+            --shard=${{ matrix.shard }}/${{ matrix.shardTotal }}
+        env:
+          # Inject secrets from GitHub — never hardcode these
+          BASE_URL:              ${{ secrets.BASE_URL }}
+          API_URL:               ${{ secrets.API_URL }}
+          UI_USERNAME:           ${{ secrets.UI_USERNAME }}
+          UI_PASSWORD:           ${{ secrets.UI_PASSWORD }}
+          CI:                    true
+
+      # Step 6 — Upload test results (runs even if tests fail)
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        # 'always()' means this runs whether tests passed or failed
+        # Critical — you need the report most when tests fail
+        with:
+          name: playwright-report-shard-${{ matrix.shard }}
+          path: playwright-report/
+          retention-days: 14
+          # Keep reports for 14 days — enough for any sprint investigation
+
+      # Step 7 — Upload failed test screenshots and videos
+      - name: Upload test artifacts on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failed-test-artifacts-shard-${{ matrix.shard }}
+          path: |
+            test-results/
+          retention-days: 7
+
+  # Second job — merge shard reports into one after both shards finish
+  merge-reports:
+    name: Merge Test Reports
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Download both shard reports
+      - name: Download shard 1 report
+        uses: actions/download-artifact@v4
+        with:
+          name: playwright-report-shard-1
+          path: playwright-report-shard-1
+
+      - name: Download shard 2 report
+        uses: actions/download-artifact@v4
+        with:
+          name: playwright-report-shard-2
+          path: playwright-report-shard-2
+
+      # Merge into one unified HTML report
+      - name: Merge reports
+        run: |
+          npx playwright merge-reports \
+            --reporter html \
+            playwright-report-shard-1 \
+            playwright-report-shard-2
+
+      # Upload the merged report
+      - name: Upload merged report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-merged
+          path: playwright-report/
+          retention-days: 14
