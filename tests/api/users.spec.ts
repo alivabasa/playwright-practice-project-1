@@ -1,6 +1,3 @@
-import {UserService} from '../../pages/api/UserService';
-import {User} from '../../models/User';
-import {ConfigManager} from '../../config/ConfigManager';
 import { UserFactory, UserFactoryBuilder } from '../../factories/UserFactory';
 import {test, expect} from '../../fixtures/fixtures';
 
