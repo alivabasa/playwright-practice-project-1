@@ -35,7 +35,7 @@ class MetricsReporter implements Reporter {
     // store for the summary
     this.tests.push({
       title: test.title,
-      file: test.location.file,
+      file: path.relative(process.cwd(), test.location.file),
       status: status,
       duration: duration,
     });

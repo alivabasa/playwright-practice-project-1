@@ -1,119 +1,16 @@
 {
   "execution": {
-    "timestamp": "2026-07-19T22:10:54.104Z",
+    "timestamp": "2026-07-25T21:39:19.360Z",
     "environment": "QA",
     "browser": "chromium",
-    "duration": 22531
+    "duration": 55
   },
   "summary": {
-    "total": 17,
-    "passed": 17,
+    "total": 0,
+    "passed": 0,
     "failed": 0,
     "skipped": 0,
-    "passRate": 100
+    "passRate": 0
   },
-  "tests": [
-    {
-      "title": "TC2: User logs in with invalid credentials",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\api\\users.spec.ts",
-      "status": "passed",
-      "duration": 1274
-    },
-    {
-      "title": "TC3: User logs in without an email",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\api\\users.spec.ts",
-      "status": "passed",
-      "duration": 1307
-    },
-    {
-      "title": "TC4: User creates an account with already registered email",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\api\\users.spec.ts",
-      "status": "passed",
-      "duration": 1492
-    },
-    {
-      "title": "TC1: create -> verify user credentials is stored-> login -> delete",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\api\\users.spec.ts",
-      "status": "passed",
-      "duration": 2054
-    },
-    {
-      "title": "TC5: User creates an account with custom details",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\api\\users.spec.ts",
-      "status": "passed",
-      "duration": 1064
-    },
-    {
-      "title": "TC2: User logs in with invalid/unregistered credentials",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 7637
-    },
-    {
-      "title": "TC3: User logs in with wrong email",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 8086
-    },
-    {
-      "title": "TC4: User logs in with wrong password",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 7905
-    },
-    {
-      "title": "TC1: User logs in with valid credentials successfully",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 9202
-    },
-    {
-      "title": "TC5: User logs in with empty credentials",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 3013
-    },
-    {
-      "title": "TC6: User logs in with invalid email format",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 3932
-    },
-    {
-      "title": "TC1: User signs up with valid credentials successfully",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\signUp.spec.ts",
-      "status": "passed",
-      "duration": 3976
-    },
-    {
-      "title": "TC8: User logs in with valid credentials & is able to logout successfully ",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 5843
-    },
-    {
-      "title": "TC7: User logs in with valid credentials successfully & validates the dashboard",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 6306
-    },
-    {
-      "title": "TC2: User signs up with already existing credentials",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\signUp.spec.ts",
-      "status": "passed",
-      "duration": 3710
-    },
-    {
-      "title": "TC3: User signs up with empty email credential",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\signUp.spec.ts",
-      "status": "passed",
-      "duration": 4401
-    },
-    {
-      "title": "TC4: User signs up with empty name credential",
-      "file": "C:\\Users\\ALIVA\\playwright-practice-project-1\\tests\\ui\\signUp.spec.ts",
-      "status": "passed",
-      "duration": 4173
-    }
-  ]
+  "tests": []
 }
