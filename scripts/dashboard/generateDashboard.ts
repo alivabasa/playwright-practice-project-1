@@ -18,7 +18,113 @@ if (!fs.existsSync(metricsFilePath)) {
 // Read and parse the metrics.json file
 const metrics: ExecutionMetrics = JSON.parse(fs.readFileSync(metricsFilePath, "utf-8"));
 
-// Generate the HTML content for the dashboard
+// ==============================
+// Generate Test Rows
+// ==============================
+
+const testRows = metrics.tests
+    .map(
+        (test) => `
+<tr>
+    <td>${test.title}</td>
+    <td>${test.status}</td>
+    <td>${test.duration} ms</td>
+</tr>
+`
+    )
+    .join("");
+
+const summaryCards = `
+    <div class="summary">
+    
+        <div class="card">
+            <h3>Total</h3>
+            <p>${metrics.summary.total}</p>
+        </div>
+    
+        <div class="card">
+            <h3>Passed</h3>
+            <p>${metrics.summary.passed}</p>
+        </div>
+    
+        <div class="card">
+            <h3>Failed</h3>
+            <p>${metrics.summary.failed}</p>
+        </div>
+    
+        <div class="card">
+            <h3>Skipped</h3>
+            <p>${metrics.summary.skipped}</p>
+        </div>
+    
+        <div class="card">
+            <h3>Pass Rate</h3>
+            <p>${metrics.summary.passRate}%</p>
+        </div>
+    
+    </div>
+    `;
+
+// ==============================
+// Execution Details
+// ==============================
+
+const executionDetails = `
+    <h2>Execution Details</h2>
+    
+    <table>
+    
+    <tr>
+        <td><strong>Environment</strong></td>
+        <td>${metrics.execution.environment}</td>
+    </tr>
+    
+    <tr>
+        <td><strong>Browser</strong></td>
+        <td>${metrics.execution.browser}</td>
+    </tr>
+    
+    <tr>
+        <td><strong>Duration</strong></td>
+        <td>${(metrics.execution.duration / 1000).toFixed(2)} sec</td>
+    </tr>
+    
+    <tr>
+        <td><strong>Executed At</strong></td>
+        <td>${metrics.execution.timestamp}</td>
+    </tr>
+    
+    </table>
+    `;
+
+// ==============================
+// Test Results
+// ==============================
+
+const testResults = `
+    <h2>Test Results</h2>
+    
+    <table>
+    
+    <thead>
+    <tr>
+        <th>Test Name</th>
+        <th>Status</th>
+        <th>Duration</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    ${testRows}
+    </tbody>
+    
+    </table>
+    `;
+
+// ==============================
+// Complete HTML
+// ==============================
+
 const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +132,66 @@ const html = `
 <head>
     <meta charset="UTF-8">
     <title>Playwright Execution Dashboard</title>
+    
+<style>
+
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f4f6f9;
+    margin:40px;
+}
+
+h1{
+    text-align:center;
+      margin-bottom:40px;
+}
+
+h2{
+    margin-top:40px;
+}
+.summary{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin-bottom:40px;
+}
+.card{
+    background:white;
+    width:160px;
+    padding:20px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+.card h3{
+    margin-top:0;
+}
+
+.card p{
+    font-size:32px;
+    font-weight:bold;
+    margin:0;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+}
+
+th,
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:left;
+}
+
+th{
+    background:#f2f2f2;
+}
+</style>
 </head>
 
 <body>
@@ -34,29 +200,32 @@ const html = `
 
     <h2>Execution Summary</h2>
 
-    <ul>
-        <li>Total Tests: ${metrics.summary.total}</li>
-        <li>Passed: ${metrics.summary.passed}</li>
-        <li>Failed: ${metrics.summary.failed}</li>
-        <li>Skipped: ${metrics.summary.skipped}</li>
-        <li>Pass Rate: ${metrics.summary.passRate}%</li>
-    </ul>
+    ${summaryCards}
+
+    ${executionDetails}
+
+    ${testResults}
 
 </body>
 
 </html>
 `;
 
-// Create the dashboard directory if it doesn't exist
+// ==============================
+// Create dashboard folder
+// ==============================
 const dashboardFilPath = path.join(process.cwd(), "dashboard");
-if (!fs.existsSync(dashboardFilPath)){
+if (!fs.existsSync(dashboardFilPath)) {
     fs.mkdirSync(dashboardFilPath, { recursive: true });
 }
 
-// Write the HTML content to the dashboard.html file
+// ==============================
+// Write dashboard.html
+// ==============================
 fs.writeFileSync(
     path.join(dashboardFilPath, "dashboard.html"),
     html,
     "utf-8"
 );
+
 
