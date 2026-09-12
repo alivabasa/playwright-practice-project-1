@@ -31,6 +31,7 @@ class MetricsReporter implements Reporter {
     const duration = result.duration;
 
     console.log(`${icon} ${test.title} — ${duration}ms`);
+    const relativeFilePath = path.relative(process.cwd(), test.location.file);
 
     // store for the summary
     this.tests.push({

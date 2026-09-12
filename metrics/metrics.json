@@ -1,16 +1,65 @@
 {
   "execution": {
-    "timestamp": "2026-07-25T21:39:19.360Z",
+    "timestamp": "2026-08-15T10:23:26.383Z",
     "environment": "QA",
     "browser": "chromium",
-    "duration": 55
+    "duration": 22772
   },
   "summary": {
-    "total": 0,
-    "passed": 0,
+    "total": 8,
+    "passed": 8,
     "failed": 0,
     "skipped": 0,
-    "passRate": 0
+    "passRate": 100
   },
-  "tests": []
+  "tests": [
+    {
+      "title": "TC2: User logs in with invalid/unregistered credentials",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 9110
+    },
+    {
+      "title": "TC3: User logs in with wrong email",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 10597
+    },
+    {
+      "title": "TC1: User logs in with valid credentials successfully",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 11366
+    },
+    {
+      "title": "TC4: User logs in with wrong password",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 11373
+    },
+    {
+      "title": "TC5: User logs in with empty credentials",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 4065
+    },
+    {
+      "title": "TC6: User logs in with invalid email format",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 4305
+    },
+    {
+      "title": "TC7: User logs in with valid credentials successfully & validates the dashboard",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 5925
+    },
+    {
+      "title": "TC8: User logs in with valid credentials & is able to logout successfully ",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 7871
+    }
+  ]
 }

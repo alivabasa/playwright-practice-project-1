@@ -28,7 +28,7 @@ const testRows = metrics.tests
 <tr>
     <td>${test.title}</td>
     <td>${test.status}</td>
-    <td>${test.duration} ms</td>
+    <td>${(test.duration/1000).toFixed(2)} sec</td>
 </tr>
 `
     )
@@ -91,7 +91,7 @@ const executionDetails = `
     
     <tr>
         <td><strong>Executed At</strong></td>
-        <td>${metrics.execution.timestamp}</td>
+        <td>${new Date(metrics.execution.timestamp).toLocaleString()}</td>
     </tr>
     
     </table>
@@ -134,17 +134,26 @@ const html = `
     <title>Playwright Execution Dashboard</title>
     
 <style>
+.container{
 
+max-width:1300px;
+
+margin:auto;
+
+}
 
 body{
-    font-family: Arial, Helvetica, sans-serif;
-    background:#f4f6f9;
-    margin:40px;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#F3F6FA;
+    margin:0;
+    padding:40px;
 }
 
 h1{
     text-align:center;
-      margin-bottom:40px;
+    margin-bottom:50px;
+    color:#1F2937;
+
 }
 
 h2{
@@ -163,6 +172,12 @@ h2{
     text-align:center;
     border-radius:10px;
     box-shadow:0 2px 6px rgba(0,0,0,.15);
+
+    transition:all .25s ease;
+}
+
+.card:hover{
+    transform:translateY(-4px);
 }
 
 .card h3{
@@ -170,31 +185,40 @@ h2{
 }
 
 .card p{
-    font-size:32px;
+    font-size:42px;
     font-weight:bold;
-    margin:0;
+    margin-top:20px;
+    color:#1565C0;
 }
 table{
     width:100%;
     border-collapse:collapse;
     background:white;
-    margin-top:20px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    margin-top:15px;
 }
 
 th,
 td{
-    border:1px solid #ddd;
     padding:12px;
-    text-align:left;
+    border-bottom:1px solid #eee;
 }
-
+tbody tr:nth-child(even){
+    background:#f8f8f8;
+}
 th{
-    background:#f2f2f2;
+   background:#1565C0;
+    color:white;
+    padding:14px;
 }
 </style>
 </head>
 
 <body>
+
+<div class="container">
 
     <h1>Playwright Execution Dashboard</h1>
 
@@ -206,7 +230,9 @@ th{
 
     ${testResults}
 
+</div>
 </body>
+
 
 </html>
 `;

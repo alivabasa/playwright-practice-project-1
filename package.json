@@ -25,6 +25,6 @@
     "test:report": "playwright show-report",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts",
-    "metrics": "tsx scripts/metrics/generateMetrics.ts"
+    "metrics": "tsx scripts/dashboard/generateDashboard.ts"
   }
 }

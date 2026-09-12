@@ -66,8 +66,8 @@ jobs:
           # Inject secrets from GitHub — never hardcode these
           BASE_URL:              ${{ secrets.BASE_URL }}
           API_URL:               ${{ secrets.API_URL }}
-          UI_USERNAME:           ${{ secrets.UI_USERNAME }}
-          UI_PASSWORD:           ${{ secrets.UI_PASSWORD }}
+          TEST_USER_EMAIL:       ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD:    ${{ secrets.TEST_USER_PASSWORD }}
           CI:                    true
 
       # Step 6 — Upload test results (runs even if tests fail)

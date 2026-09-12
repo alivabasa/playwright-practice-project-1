@@ -1,8 +1,8 @@
 // fixtures/fixtures.ts
 import { test as base, expect } from '@playwright/test';
 import { UserService } from '../pages/api/UserService';
-import { LoginPage } from '../pages/ui/LoginTests';
-import { SignUpPage } from '../pages/ui/SignUpTests';
+import { LoginPage } from '../pages/ui/LoginPage';
+import { SignUpPage } from '../pages/ui/SignUpPage';
 import { UserFactory } from '../factories/UserFactory';
 import { User } from '../models/User';
 
