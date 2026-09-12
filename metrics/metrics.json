@@ -1,65 +1,65 @@
 {
   "execution": {
-    "timestamp": "2026-08-15T10:23:26.383Z",
+    "timestamp": "2026-09-12T19:46:40.421Z",
     "environment": "QA",
     "browser": "chromium",
-    "duration": 22772
+    "duration": 53646
   },
   "summary": {
     "total": 8,
-    "passed": 8,
-    "failed": 0,
+    "passed": 7,
+    "failed": 1,
     "skipped": 0,
-    "passRate": 100
+    "passRate": 87.5
   },
   "tests": [
     {
       "title": "TC2: User logs in with invalid/unregistered credentials",
       "file": "tests\\ui\\login.spec.ts",
       "status": "passed",
-      "duration": 9110
-    },
-    {
-      "title": "TC3: User logs in with wrong email",
-      "file": "tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 10597
-    },
-    {
-      "title": "TC1: User logs in with valid credentials successfully",
-      "file": "tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 11366
+      "duration": 15866
     },
     {
       "title": "TC4: User logs in with wrong password",
       "file": "tests\\ui\\login.spec.ts",
       "status": "passed",
-      "duration": 11373
+      "duration": 17953
+    },
+    {
+      "title": "TC3: User logs in with wrong email",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 18015
+    },
+    {
+      "title": "TC1: User logs in with valid credentials successfully",
+      "file": "tests\\ui\\login.spec.ts",
+      "status": "passed",
+      "duration": 23081
     },
     {
       "title": "TC5: User logs in with empty credentials",
       "file": "tests\\ui\\login.spec.ts",
       "status": "passed",
-      "duration": 4065
+      "duration": 7345
     },
     {
       "title": "TC6: User logs in with invalid email format",
       "file": "tests\\ui\\login.spec.ts",
       "status": "passed",
-      "duration": 4305
+      "duration": 12131
     },
     {
       "title": "TC7: User logs in with valid credentials successfully & validates the dashboard",
       "file": "tests\\ui\\login.spec.ts",
       "status": "passed",
-      "duration": 5925
+      "duration": 19516
     },
     {
       "title": "TC8: User logs in with valid credentials & is able to logout successfully ",
       "file": "tests\\ui\\login.spec.ts",
-      "status": "passed",
-      "duration": 7871
+      "status": "failed",
+      "duration": 25430
     }
   ]
 }

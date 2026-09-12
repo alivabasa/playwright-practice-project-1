@@ -70,15 +70,16 @@ jobs:
           TEST_USER_PASSWORD:    ${{ secrets.TEST_USER_PASSWORD }}
           CI:                    true
 
-      # Step 6 — Upload test results (runs even if tests fail)
-      - name: Upload Playwright report
+      # Step 6 — Upload the blob report (needed for merge-reports later)
+      # NOTE: with reporter: [['blob'], ...] in CI, Playwright writes to blob-report/
+      - name: Upload blob report
         uses: actions/upload-artifact@v4
         if: always()
         # 'always()' means this runs whether tests passed or failed
         # Critical — you need the report most when tests fail
         with:
-          name: playwright-report-shard-${{ matrix.shard }}
-          path: playwright-report/
+          name: blob-report-shard-${{ matrix.shard }}
+          path: blob-report/
           retention-days: 14
           # Keep reports for 14 days — enough for any sprint investigation
 
@@ -112,26 +113,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Download both shard reports
-      - name: Download shard 1 report
+      # Download both shards' blob reports into ONE shared folder —
+      # merge-reports expects all blob files together, not split across folders
+      - name: Download shard 1 blob report
         uses: actions/download-artifact@v4
         with:
-          name: playwright-report-shard-1
-          path: playwright-report-shard-1
+          name: blob-report-shard-1
+          path: all-blob-reports
 
-      - name: Download shard 2 report
+      - name: Download shard 2 blob report
         uses: actions/download-artifact@v4
         with:
-          name: playwright-report-shard-2
-          path: playwright-report-shard-2
+          name: blob-report-shard-2
+          path: all-blob-reports
 
       # Merge into one unified HTML report
       - name: Merge reports
         run: |
           npx playwright merge-reports \
             --reporter html \
-            playwright-report-shard-1 \
-            playwright-report-shard-2
+            ./all-blob-reports
 
       # Upload the merged report
       - name: Upload merged report
